@@ -1,0 +1,22 @@
+\begin{frame}{%
+\protect\hypertarget{slide-1}{%
+Slide 1}}
+
+\onslide<1> first slide
+
+\onslide<2> second slide
+
+\onslide<1-> all slides
+
+\begin{itemize}
+\item
+  \onslide<1,3> first and third slides
+\item
+  \onslide<2-> second and following slides
+\item
+  \onslide<3> third only
+\item
+  \onslide<4> fourth only
+\end{itemize}
+
+\end{frame}

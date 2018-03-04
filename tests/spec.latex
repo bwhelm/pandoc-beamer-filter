@@ -1,0 +1,19 @@
+\hypertarget{slide-1}{%
+\section{Slide 1}\label{slide-1}}
+
+\textless{}1\textgreater{} first slide
+
+\textless{}2\textgreater{} second slide
+
+\textless{}1-\textgreater{} all slides
+
+\begin{itemize}
+\item
+  \textless{}1,3\textgreater{} first and third slides
+\item
+  \textless{}2-\textgreater{} second and following slides
+\item
+  \textless{}3\textgreater{} third only
+\item
+  \textless{}4\textgreater{} fourth only
+\end{itemize}

@@ -1,0 +1,10 @@
+<h1 id="slide-1">Slide 1</h1>
+<p>&lt;1&gt; first slide</p>
+<p>&lt;2&gt; second slide</p>
+<p>&lt;1-&gt; all slides</p>
+<ul>
+<li><p>&lt;1,3&gt; first and third slides</p></li>
+<li><p>&lt;2-&gt; second and following slides</p></li>
+<li><p>&lt;3&gt; third only</p></li>
+<li><p>&lt;4&gt; fourth only</p></li>
+</ul>
