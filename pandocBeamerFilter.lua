@@ -15,10 +15,11 @@ function findOverlaySpec(block)
         local first, last = string.find(firstInline.text, '^[*+]?<[^\\s]+>')
         if first then
             table.remove(block.content, 1)
-            local overlaySpec = string.sub(firstInline.text, first, last)
-            print(overlaySpec)
-            local inline = latex('\\onslide' .. overlaySpec)
-            table.insert(block.content, 1, inline)
+            if FORMAT == 'beamer' then
+                local overlaySpec = string.sub(firstInline.text, first, last)
+                local inline = latex('\\onslide' .. overlaySpec)
+                table.insert(block.content, 1, inline)
+            end
         end
     end
     return block
@@ -26,20 +27,29 @@ end
 
 
 function handlePlain(plain)
-    if FORMAT == 'beamer' then
-        return findOverlaySpec(plain)
-    end
+    return findOverlaySpec(plain)
 end
 
 
 function handlePara(para)
-    if FORMAT == 'beamer' then
-        return findOverlaySpec(para)
+    return findOverlaySpec(para)
+end
+
+
+function handleInline(inline)
+    if FORMAT == 'beamer' and inline.attr.attributes.slides then
+        local replacement = inline.content
+        table.insert(replacement, 1, latex('\\onslide' .. inline.attr.attributes.slides .. '{'))
+        table.insert(replacement, latex('}'))
+        return replacement
+    else
+        return inline.content
     end
 end
 
 
 local BEAMER_FILTER = {
+    {Span = handleInline},
     {Para = handlePara},
     {Plain = handlePlain}
 }

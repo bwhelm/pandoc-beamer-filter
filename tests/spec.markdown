@@ -1,16 +1,16 @@
 Slide 1
 =======
 
-\<1\> first slide
+ first slide
 
-\<2\> second slide
+ second slide
 
-\<1-\> all slides
+ all slides
 
--   \<1,3\> first and third slides
+-    first and third slides
 
--   \<2-\> second and following slides
+-    second and following slides third slide only
 
--   \<3\> third only
+-    third only
 
--   \<4\> fourth only
+-    fourth only

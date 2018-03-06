@@ -13,7 +13,7 @@ author: bwhelm
 
 - <1,3> first and third slides
 
-- <2-> second and following slides
+- <2-> second and following slides [third slide only]{slides="<3>"}
 
 - <3> third only
 

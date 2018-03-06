@@ -27,3 +27,22 @@ This filter simplifies the creation of beamer slides from markdown. In particula
 
         \end{frame}
 
+    In all other formats, the `<...>` will be removed, but everything else will remain.
+
+2. Replace `[...]{slides="<spec>"}` with `\\onslide<spec>{...}`. Thus
+
+        - Text on all slides. [Text only on second slide.]{slides="<2>"}
+
+    will produce the following (beamer) LaTeX:
+
+        \begin{frame}
+
+        \begin{itemize}
+        \tightlist
+        \item
+        Text on all slides. \onslide<2>{Text only on second slide.}
+        \end{itemize}
+
+        \end{frame}
+
+    In all other formats, the `span` will be removed, but the content will remain.
