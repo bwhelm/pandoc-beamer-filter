@@ -10,15 +10,22 @@ end
 
 
 function findOverlaySpec(block)
-    local firstInline = block.content[1]
-    if firstInline.tag == 'Str' then
-        local first, last = string.find(firstInline.text, '^[*+]?<[^\\s]+>')
-        if first then
-            table.remove(block.content, 1)
-            if FORMAT == 'beamer' then
-                local overlaySpec = string.sub(firstInline.text, first, last)
-                local inline = latex('\\onslide' .. overlaySpec)
-                table.insert(block.content, 1, inline)
+    -- This will check to see if the block starts with an overlay
+    -- specification followed by a space. If so, it inserts the appropriate
+    -- LaTeX code with that specification around the block.
+    if FORMAT == 'beamer' and #block.content > 2 then
+        local firstInline = block.content[1]
+        if firstInline.tag == 'Str' and block.content[2].tag == 'Space' then
+            local first, last = string.find(firstInline.text, '^[*+]?<[^\\s]+>$')
+            if first then
+                table.remove(block.content, 1)
+                if FORMAT == 'beamer' then
+                    local overlaySpec = string.sub(firstInline.text, first, last)
+                    local inline = latex('\\onslide' .. overlaySpec .. '{')
+                    table.insert(block.content, 1, inline)
+                    table.remove(block.content, 2)  -- Remove <Space>
+                    table.insert(block.content, latex('}'))
+                end
             end
         end
     end
@@ -38,13 +45,10 @@ end
 
 function handleInline(inline)
     if FORMAT == 'beamer' and inline.attr.attributes.slides then
-        local replacement = inline.content
-        table.insert(replacement, 1, latex('\\onslide' .. inline.attr.attributes.slides .. '{'))
-        table.insert(replacement, latex('}'))
-        return replacement
-    else
-        return inline.content
+        table.insert(inline.content, 1, latex('\\onslide' .. inline.attr.attributes.slides .. '{'))
+        table.insert(inline.content, latex('}'))
     end
+    return inline.content
 end
 
 
